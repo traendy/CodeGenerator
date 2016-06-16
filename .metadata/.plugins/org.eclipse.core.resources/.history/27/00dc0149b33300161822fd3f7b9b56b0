@@ -1,0 +1,30 @@
+package inter;
+
+public class Interpreter {
+
+	
+	
+	// print an integer and a newline in standard output
+	static void   printInt(int x){
+		 System.out.println(x);
+	 }
+	static void   printDouble(double x) {
+	    	// print a double and a newline in standard output
+	    }
+	static void   printString(String x) {
+	    	// print a string and a newline in standard output
+	    }
+	static int    readInt()  {
+	    	// read an integer from standard input
+		return 0;
+	    }
+	static double readDouble() {
+	    	// read a double from standard input
+		return 0;
+	    }
+	static  String readString() {
+	    	// read a string from standard input
+		return null;
+	    }
+
+}

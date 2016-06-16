@@ -1,0 +1,41 @@
+package inter;
+
+import java.util.Scanner;
+
+public class Interpreter {
+
+	
+	
+	private static Scanner s;
+	private static Scanner s2;
+	private static Scanner s3;
+	// print an integer and a newline in standard output
+	static void   printInt(int x){
+		 System.out.println(x);
+	 }
+	
+	static void   printDouble(double x) {
+	    	// print a double and a newline in standard output
+		 System.out.println(x);
+	    }
+	static void   printString(String x) {
+	    	// print a string and a newline in standard output
+		 System.out.println(x);
+	    }
+	
+	static int    readInt()  {
+	    s3 = new Scanner(System.in);
+	   
+		return s3.nextInt();
+	    }
+	static double readDouble() {
+		 s2 = new Scanner(System.in);
+		   
+			return s2.nextDouble();
+	    }
+	static  String readString() {
+		 s = new Scanner(System.in);
+		 return s.nextLine();
+	    }
+
+}

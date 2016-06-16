@@ -1,0 +1,11 @@
+package inter;
+
+public class Main {
+
+	public static void main(String[] args) {
+		System.out.println("hahsd0");
+		String s =Interpreter.readString();
+		System.out.println(s);
+	}
+
+}

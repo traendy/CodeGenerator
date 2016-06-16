@@ -1,0 +1,27 @@
+package inter;
+
+public class Interpreter {
+
+	
+	
+	
+	static void   printInt(int x){
+		 // print an integer and a newline in standard output
+	 }
+	static void   printDouble(double x) {
+	    	// print a double and a newline in standard output
+	    }
+	static void   printString(string x) {
+	    	// print a string and a newline in standard output
+	    }
+	static int    readInt()  {
+	    	// read an integer from standard input
+	    }
+	static double readDouble() {
+	    	// read a double from standard input
+	    }
+	static  string readString() {
+	    	// read a string from standard input
+	    }
+
+}
