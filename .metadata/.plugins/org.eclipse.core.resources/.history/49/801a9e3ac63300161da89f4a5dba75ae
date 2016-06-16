@@ -1,0 +1,12 @@
+package gen;
+/**
+ * suppose tto write the file that is then executed with jasmin
+ * 
+ * 
+ * @author soenke
+ *
+ */
+public class Filewriter {
+	
+	public static File jasminfile = new File("jasminfile.txt");
+}
