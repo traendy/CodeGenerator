@@ -56,11 +56,14 @@ public class Main {
 	 * make java to execute jasmin and with that text file
 	 * For any 
 	 * 
+	 * 
+	 * maybe it does make sense to do sysos in every visit and eval 
 	 * @param parse_tree
 	 */
 	
 	private static void generate(Program parse_tree) {
-		// TODO Auto-generated method stub
+		Compiler c = new Compiler();
+		c.eval(parse_tree);
 		
 	}
 	

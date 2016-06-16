@@ -16,6 +16,8 @@ public class CompileArg implements Arg.Visitor<String, String>{
 	 */
 	@Override
 	public String visit(ADecl p, String arg) {
+		System.out.println("Visit ADecl");
+		
 		// TODO Auto-generated method stub
 		return null;
 	}

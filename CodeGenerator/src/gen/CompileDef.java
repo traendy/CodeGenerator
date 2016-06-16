@@ -12,6 +12,13 @@ public class CompileDef implements Def.Visitor<String, String> {
 	@Override
 	public String visit(DFun p, String arg) {
 		// TODO Auto-generated method stub
+		System.out.println("Visit DFun");
+		for(int i =0; i<p.listarg_.size(); i++){
+			Compiler.eval(p.listarg_.get(i));	
+		}
+		for(int i =0; i<p.liststm_.size(); i++){
+			Compiler.eval(p.liststm_.get(i));	
+		}
 		return null;
 	}
 
