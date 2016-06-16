@@ -1,0 +1,97 @@
+package main;
+
+import CPP.*;
+import CPP.Absyn.*;
+import CPP.Absyn.Type.Visitor;
+/**
+ * When type-checking a statement, we are not interested in a type, but
+just  in whether  the statement  is
+valid
+.
+ * @author soenke
+ *
+ */
+public class CheckStm implements Stm.Visitor<TypeCode, TypeCode>{
+
+	
+	@Override
+	public TypeCode visit(CPP.Absyn.SExp p, TypeCode arg) {
+		System.out.println("SExp");
+		//inferExp(p.exp_, arg); //TODO funktion
+		return arg;
+	}
+	
+
+
+	@Override
+	public TypeCode visit(SDecls p, TypeCode env) {
+		System.out.println("SDecls");
+		//Env.updateVar(p.listid_, p.type_);
+		return env;
+	}
+
+	@Override
+	public TypeCode visit(SInit p, TypeCode arg) {
+		System.out.println("SInit");
+		Interpreter.eval(p.exp_);
+		//Interpreter.eval(p.id_);
+		//Interpreter.eval(p.type_);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(SReturn p, TypeCode arg) {
+		System.out.println("SReturn");
+		//Env.addVar("return", null); // does not work in case there is a retrun statement 
+		System.out.println(Env.contexts.getFirst().toString());
+		CurrentType.currentType= Env.extractValue(Env.contexts.getFirst().toString());
+	
+		Interpreter.eval(p.exp_);
+		/**
+		 * damit ich weiß ob ich ein return prüfe füge ich es der context liste hinzu
+		 */
+		Env.addVar("return", null);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(SReturnVoid p, TypeCode arg) {
+		System.out.println("SReturnVoid");
+		CurrentType.currentType= Env.extractValue(Env.contexts.getFirst().toString());
+		if(CurrentType.currentType!=TypeCode.CDef){
+			if(CurrentType.currentType!=TypeCode.CVoid)
+				System.out.println("Error @ Return");
+			CurrentType.currentType=TypeCode.CDef;
+		}
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(SWhile p, TypeCode arg) {
+		System.out.println("SWhile");
+		Interpreter.eval(p.stm_);
+		Interpreter.eval(p.exp_);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(SBlock p, TypeCode arg) {
+		System.out.println("SBlock");
+		for(int i =0; i< p.liststm_.size(); i++){
+		Interpreter.eval(p.liststm_.get(i));
+		}
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(SIfElse p, TypeCode arg) {
+		System.out.println("SEIfELse");
+		 Interpreter.eval(p.exp_);
+		 Interpreter.eval(p.stm_1);
+		 Interpreter.eval(p.stm_2);
+		 return null;
+	}
+	
+	
+	
+}

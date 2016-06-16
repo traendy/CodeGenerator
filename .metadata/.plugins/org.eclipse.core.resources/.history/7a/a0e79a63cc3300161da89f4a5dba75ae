@@ -1,0 +1,13 @@
+package gen;
+
+import CPP.Absyn.Program.Visitor;
+
+
+/**
+ * the 
+ * @author soenke
+ *
+ */
+public class CompileProgramm implements Visitor<R, A>{
+
+}

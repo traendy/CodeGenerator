@@ -1,0 +1,7 @@
+package gen;
+import CPP.*;
+import CPP.Absyn.*;
+
+public class CompileDef implements Def.Visitor<R, A> {
+
+}

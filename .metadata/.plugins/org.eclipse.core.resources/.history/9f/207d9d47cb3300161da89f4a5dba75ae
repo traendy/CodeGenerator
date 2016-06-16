@@ -1,0 +1,8 @@
+package gen;
+
+import CPP.*;
+import CPP.Absyn.*;
+
+public class CompileStm implements Stm.Visitor<R, A>{
+
+}

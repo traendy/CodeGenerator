@@ -1,0 +1,13 @@
+package gen;
+
+import CPP.Absyn.Program.Visitor;
+
+
+/**
+ * the R and A aastuff has to be evaluatet
+ * @author soenke
+ *
+ */
+public class CompileProgramm implements Visitor<R, A>{
+
+}

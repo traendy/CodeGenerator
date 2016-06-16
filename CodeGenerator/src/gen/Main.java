@@ -38,7 +38,27 @@ public class Main {
 		}
 
 	}
-
+	
+	/**
+	 * The idea is to go through the parse tree and genreate for each line of code the corresponding llvm code
+	 * and write this always in a string
+	 * whenever the line is done it goes back to the compile stm 
+	 * the new string shall be printed in the jasmin file
+	 * which is generated at the beginning
+	 * when the parse tree ended
+	 * call jasmin and execute the generated class file.
+	 * thing concerning visitor pattern check the typechecker and the corrsponing classes with check* istead of compile*
+	 * 
+	 * SO implement the visitor pattern
+	 * implemnt the functions
+	 * 			-read through the doc of llvm to find the correct string values for the functions
+	 * print the string in an existing file
+	 * make java to execute jasmin and with that text file
+	 * For any 
+	 * 
+	 * @param parse_tree
+	 */
+	
 	private static void generate(Program parse_tree) {
 		// TODO Auto-generated method stub
 		

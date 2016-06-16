@@ -1,0 +1,15 @@
+package gen;
+
+import CPP.*;
+import CPP.Absyn.*;
+
+/**
+ * evalute the R and A
+ * @author soenke
+ *
+ */
+
+
+public class CompileStm implements Stm.Visitor<R, A>{
+
+}

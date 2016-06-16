@@ -1,0 +1,8 @@
+package gen;
+
+import CPP.*;
+import CPP.Absyn.*;
+
+public class CompileArg implements Arg.Visitor<R, A>{
+
+}

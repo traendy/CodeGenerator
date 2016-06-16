@@ -1,0 +1,13 @@
+package gen;
+import CPP.*;
+import CPP.Absyn.*;
+
+
+/**
+ * Find the R, and A attributes I dont know them now
+ * @author soenke
+ *
+ */
+public class CompileExp implements Exp.Visitor<R, A><{
+	
+}

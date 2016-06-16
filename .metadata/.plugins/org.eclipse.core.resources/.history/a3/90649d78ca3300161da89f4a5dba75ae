@@ -1,0 +1,322 @@
+package gen;
+
+import CPP.Absyn.EAnd;
+import CPP.Absyn.EApp;
+import CPP.Absyn.EAss;
+import CPP.Absyn.EDecr;
+import CPP.Absyn.EDiv;
+import CPP.Absyn.EDouble;
+import CPP.Absyn.EEq;
+import CPP.Absyn.EFalse;
+import CPP.Absyn.EGt;
+import CPP.Absyn.EGtEq;
+import CPP.Absyn.EId;
+import CPP.Absyn.EIncr;
+import CPP.Absyn.EInt;
+import CPP.Absyn.ELt;
+import CPP.Absyn.ELtEq;
+import CPP.Absyn.EMinus;
+import CPP.Absyn.ENEq;
+import CPP.Absyn.EOr;
+import CPP.Absyn.EPDecr;
+import CPP.Absyn.EPIncr;
+import CPP.Absyn.EPlus;
+import CPP.Absyn.EString;
+import CPP.Absyn.ETimes;
+import CPP.Absyn.ETrue;
+import CPP.Absyn.ETyped;
+import CPP.Absyn.Exp;
+import CPP.Absyn.Type;
+
+public class CompileExp implements Exp.Visitor<TypeCode, TypeCode>{
+
+	@Override
+	public TypeCode visit(ETrue p, TypeCode arg) { //TODO this enviroment stuff makes me sick 
+		System.out.println("ETrue");
+		if(CurrentType.currentType!=TypeCode.CDef){
+			if(CurrentType.currentType!=TypeCode.CBool)
+				System.out.println("Error @ Return");
+			CurrentType.currentType=TypeCode.CDef;
+		}
+		TypeBool.isBool = true;
+		return TypeCode.CBool;
+	}
+/**
+ * The issue is that i need to build the enviroment so that I can get some types from there. as it is written in the book
+ * If i would have no enviroments i would return hiere simple types.
+ */
+	
+
+	@Override
+	public TypeCode visit(EFalse p, TypeCode arg) {
+		System.out.println("EFalse");
+		if(CurrentType.currentType!=TypeCode.CDef){
+			if(CurrentType.currentType!=TypeCode.CBool)
+				System.out.println("Error @ Return");
+			CurrentType.currentType=TypeCode.CDef;
+		}
+		TypeBool.isBool = true;
+		//return TypeCode.CBool;
+		return TypeCode.CBool;
+	}
+
+	@Override
+	public TypeCode visit(EInt p, TypeCode arg) {
+		System.out.println("EInt");
+		if(CurrentType.currentType!=TypeCode.CDef){
+			if(CurrentType.currentType!=TypeCode.CInt)
+				System.out.println("Error @ Return");
+			CurrentType.currentType=TypeCode.CDef;
+		
+		}
+		return TypeCode.CInt;
+	}
+
+	@Override
+	public TypeCode visit(EDouble p, TypeCode arg) {
+		System.out.println("EDouble");
+		if(CurrentType.currentType!=TypeCode.CDef){
+			if(CurrentType.currentType!=TypeCode.CDouble)
+				System.out.println("Error @ Return");
+			CurrentType.currentType=TypeCode.CDef;
+		}
+		return TypeCode.CDouble;
+	}
+
+	@Override
+	public TypeCode visit(EString p, TypeCode arg) {
+		System.out.println("EString");
+		if(CurrentType.currentType!=TypeCode.CDef){
+			if(CurrentType.currentType!=TypeCode.CString)
+				System.out.println("Error @ Return");
+			CurrentType.currentType=TypeCode.CDef;
+		}
+		return TypeCode.CString;
+	}
+	//TODO die Cpp.absyn.types in lesbare types umbauen
+	@Override
+	public TypeCode visit(EId p, TypeCode arg) {
+		System.out.println("EId");
+		//System.out.println("Size of con: " +Env.contexts.size());
+		//System.out.println("First: " +Env.contexts.getFirst().toString());
+		//System.out.println("Second: " +Env.contexts.get(1).toString());
+		for(int i =0; i<Env.contexts.size(); i++){
+			//System.out.println("p.id_ is" +p.id_);
+			//System.out.println(Env.contexts.get(i).toString());
+			if(Env.contexts.get(i).containsKey(p.id_)){
+				return null;
+			}
+		}
+		System.out.println("ERROR Type missmatch @ " + p.id_ +" is not defined yet");
+		System.exit(-1);
+		return null; 
+		
+	}
+
+	@Override
+	public TypeCode visit(EApp p, TypeCode arg) {
+		System.out.println("EApp");
+		for(int i =0; i< p.listexp_.size(); i++){
+		Compiler.eval(p.listexp_.get(i));
+		}
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EPIncr p, TypeCode arg) {
+		System.out.println("EPIncr");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EPDecr p, TypeCode arg) {
+		System.out.println("EPDecr");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EIncr p, TypeCode arg) {
+		System.out.println("EIncr");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EDecr p, TypeCode arg) {
+		System.out.println("EDecr");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(ETimes p, TypeCode arg) {
+		System.out.println("ETimes");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EDiv p, TypeCode arg) {
+		System.out.println("EDiv");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EPlus p, TypeCode arg) {
+		System.out.println("EPlus");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null; //TODO
+	}
+
+	@Override
+	public TypeCode visit(EMinus p, TypeCode arg) {
+		System.out.println("EMinus");
+		if(TypeBool.isBool){
+			System.out.println("Type missmatch");
+			System.exit(-1);
+		}
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(ELt p, TypeCode arg) {
+		System.out.println("ELt");
+		
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EGt p, TypeCode arg) {
+		System.out.println("EGt");
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(ELtEq p, TypeCode arg) {
+		System.out.println("ELtEq");
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EGtEq p, TypeCode arg) {
+		System.out.println("EGtEq");
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EEq p, TypeCode arg) {
+		System.out.println("EEq");
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(ENEq p, TypeCode arg) {
+		System.out.println("ENEq");
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EAnd p, TypeCode arg) {
+		System.out.println("EAnd");
+		Compiler.eval(p.exp_1);
+		
+		if(!TypeBool.isBool){
+		System.out.println("Type MIssmatch @ Boolean");
+		System.exit(-1);
+		}
+		TypeBool.isBool=false;
+		Compiler.eval(p.exp_2);
+		if(!TypeBool.isBool){
+			System.out.println("Type MIssmatch @ Boolean");
+			System.exit(-1);
+			}
+			TypeBool.isBool=false;
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EOr p, TypeCode arg) {
+		System.out.println("EOr");
+		Compiler.eval(p.exp_1);
+		Compiler.eval(p.exp_2);
+		
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(EAss p, TypeCode arg) {
+		System.out.println("EAss");
+		Compiler.eval(p.exp_1);
+		
+		if(!TypeBool.isBool){
+		System.out.println("Type MIssmatch @ Boolean");
+		System.exit(-1);
+		}
+		TypeBool.isBool=false;
+		Compiler.eval(p.exp_2);
+		if(!TypeBool.isBool){
+			System.out.println("Type MIssmatch @ Boolean");
+			System.exit(-1);
+			}
+			TypeBool.isBool=false;
+		return null;
+	}
+
+	@Override
+	public TypeCode visit(ETyped p, TypeCode arg) {
+		System.out.println("ETyped");
+		return null;
+	}
+	
+	
+
+}
