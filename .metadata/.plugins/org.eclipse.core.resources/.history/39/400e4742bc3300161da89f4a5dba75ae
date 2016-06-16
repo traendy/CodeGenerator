@@ -1,0 +1,83 @@
+package inter;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.io.*;
+import CPP.Absyn.*;
+
+
+public class Env {
+	public static HashMap<String, FunType> signature; //* check if ths String is the types idk if i even need this
+	public static LinkedList<HashMap<String,  TypeCode>> contexts = new LinkedList<>();  //idk if this Type her should be a Type form bnfc gen stuff or from my TypeCode Enum
+	public static int contextLevel=0;		// my way to determine the depth or number of contexts
+	
+	/**
+	 * Search through the contexts List hashmaps until the newest id type is found
+	 * @param id the id of which we search the type 
+	 * @return
+	 */
+	public static TypeCode lookupVar(String id) {
+		int i=0;
+		while(!contexts.get(i).containsKey(id) && i<contexts.size()){
+			i++;
+		}
+		if(contexts.get(i).containsKey(id)) return contexts.get(i).get(id);
+		else{
+			System.out.println("ERROR @ lookupVar: No valid type found");
+			return null;
+			
+		}
+	
+	}
+	
+	
+	public static TypeCode lookupFun(String id) {//...idk if i need this before i have more than one function per programm to evalute 
+		for(int i=0; i< contexts.size(); i++){
+			if(contexts.get(i).containsKey(id)){
+				return contexts.get(i).get(id);
+			}
+		}
+		System.out.println("Variable not fount in contextslist.");
+		return TypeCode.CVoid;
+		}
+		
+	public static void updateVar(ListId listid_, Type ty){ //list id ist aus der klasse ListId aber ka wie das mit den strings geht also hier simple nummern
+		//contexts.get(listid_).put(key, ty);
+	}
+
+
+
+
+
+	public static void addVar(String id_, TypeCode type_) {
+	HashMap<String, TypeCode> newVar = new HashMap<>();
+	//System.out.println(id_ +" is "+ type_.toString());
+	newVar.put(id_, type_);
+	
+	contexts.add(newVar);
+	//System.out.println(contexts.size());
+	}
+
+	/**
+	 * String stuff
+	 */
+	
+	
+	public static TypeCode extractValue(String s){
+		if(s.contains("Int")) return TypeCode.CInt;
+		if(s.contains("Double")) return TypeCode.CDouble;
+		if(s.contains("Bool")) return TypeCode.CBool;
+		if(s.contains("String")) return TypeCode.CString;
+		if(s.contains("Void")) return TypeCode.CVoid;
+		else {
+			System.out.println("Error TypeCode not found");
+			return TypeCode.CDef;
+		}
+		
+	}
+	
+	public static void clearTable(){
+		contexts.clear();
+	}
+	//....
+}

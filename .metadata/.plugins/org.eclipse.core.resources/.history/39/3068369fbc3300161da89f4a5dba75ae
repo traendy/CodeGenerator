@@ -1,0 +1,34 @@
+package inter;
+
+import CPP.Absyn.*;
+
+public class Interpreter {
+	public static TypeCode eval(Exp e){
+		//System.out.println(e.accept(new CheckExp(), null)+"------------");// retruned null klären
+		 e.accept(new InferExp(), null);
+		return null;
+	}
+	
+	public static TypeCode eval(Stm s){
+		 s.accept(new CheckStm(), null);
+		return null;
+	}
+	
+	public static TypeCode eval(Arg a){
+		 a.accept(new CheckArg(), null);
+		return null;
+	}
+	
+	public static TypeCode eval(Def d){
+		 d.accept(new CheckDef(), null);
+		return null;
+	}
+	
+	public static Program eval(Program p){
+		 p.accept(new CheckProgram(),null);
+		return null;
+	}
+	
+	
+	
+}

@@ -1,0 +1,9 @@
+package inter;
+/**
+ * Value class to handle  the difrent kinds/types of variables 
+ * @author soenke
+ *
+ */
+public class Val {
+	
+}

@@ -1,0 +1,16 @@
+package inter;
+
+public class Main {
+/**
+ * The Interpreter updates variables as the programm contiuos
+ * e.g: int x=1  // enviroment x:1
+ * 		x=x+34	// envoroment x:35
+ * 		int y = 2// enviroment x:35, y:2
+ * 		int z = x+y // enviroment x:35, y:2, z: 37
+ * @param args
+ */
+	public static void main(String[] args) {
+	
+	}
+
+}
