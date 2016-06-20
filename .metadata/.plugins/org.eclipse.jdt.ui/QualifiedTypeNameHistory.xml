@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="CPP.Yylex"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="CPP.parser"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="CPP.Absyn.Exp.Visitor"/>
+<fullyQualifiedTypeName name="CPP.Absyn.Stm.Visitor"/>
+<fullyQualifiedTypeName name="CPP.Absyn.Program.Visitor"/>
+<fullyQualifiedTypeName name="CPP.Absyn.Def.Visitor"/>
+<fullyQualifiedTypeName name="CPP.Absyn.Arg.Visitor"/>
+<fullyQualifiedTypeName name="gen.Compiler"/>
+<fullyQualifiedTypeName name="gen.CompileExp"/>
+</qualifiedTypeNameHistroy>
