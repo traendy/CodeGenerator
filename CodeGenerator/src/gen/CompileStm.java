@@ -18,8 +18,9 @@ public class CompileStm implements Stm.Visitor<String, String>{
 	@Override
 	public String visit(SExp p, String arg) {
 		// TODO Auto-generated method stub
-		Compiler.eval(p.exp_);
 		System.out.println("Visit SExp");
+
+		Compiler.eval(p.exp_);
 		return null;
 	}
 
@@ -74,6 +75,7 @@ public class CompileStm implements Stm.Visitor<String, String>{
 		// TODO Auto-generated method stub
 		for(int i=0; i<p.liststm_.size(); i++){
 			Compiler.eval(p.liststm_.get(i));
+			
 		}
 		
 		return null;

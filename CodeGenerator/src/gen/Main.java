@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.jllvm.LLVMContext;
+import org.jllvm.LLVMModule;
+
 import CPP.Yylex;
 import CPP.parser;
 import CPP.Absyn.Program;
@@ -66,8 +69,9 @@ public class Main {
 	private static void generate(Program parse_tree) {
 		Compiler c = new Compiler();
 		System.out.println(parse_tree.toString());
-		c.eval(parse_tree);
 		
+		c.eval(parse_tree);
+		//Module.mod.dump();
 	}
 	
 	
