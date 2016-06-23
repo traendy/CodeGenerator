@@ -14,8 +14,8 @@ public  class Module {
 	
 	//TODO Stringbuilder
 	static void builder(String str){
-		StringBuilder sbuilder = StringBuilder;
-		sbuilder.append(str);
-		llvm_output
+		StringBuilder sb = new StringBuilder();
+		sb.append(llvm_output).append(str);
+		llvm_output = sb.toString();
 	}
 }
