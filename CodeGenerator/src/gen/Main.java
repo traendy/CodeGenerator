@@ -14,6 +14,7 @@ import CPP.Absyn.Program;
 
 public class Main {
 
+	static  String filename;
 	public static void main(String[] args) {
 		
 		try {
@@ -21,6 +22,7 @@ public class Main {
 			//File f = new File("/home/soenke/Schreibtisch/Compiler/ex4/workspace/CodeGenerator/files/good01.cc");
 			File f = new File("good01.cc");
 			f.createNewFile();
+			filename = f.getName();
 			if(!f.exists()){
 			System.out.println("File does not exist");
 			}
@@ -64,6 +66,7 @@ public class Main {
 		c.eval(parse_tree);
 		System.out.println(Module.llvm_output);
 		//Module.mod.dump();
+		Filewriter.writeFile(filename);
 	}
 	
 	
