@@ -13,13 +13,20 @@ public class CompileDef implements Def.Visitor<String, String> {
 	public String visit(DFun p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit DFun");
+		Module.getType(p.type_.toString());
+		Module.buildString(p.id_ +"(");
 		for(int i =0; i<p.listarg_.size(); i++){
 			Compiler.eval(p.listarg_.get(i));	
+			if(i< p.listarg_.size() - 1) Module.buildString(", ");
 		}
+		Module.buildString(")"+"{\n" + "entry: \n");
 		for(int i =0; i<p.liststm_.size(); i++){
 			Compiler.eval(p.liststm_.get(i));	
 		}
+		Module.buildString("\n}");
 		return null;
 	}
-
+	
+	
+	
 }

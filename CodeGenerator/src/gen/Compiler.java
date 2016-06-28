@@ -11,7 +11,8 @@ public class Compiler {
 	
 	public static void eval(Stm s){
 		System.out.println("Eval Statement");
-		 s.accept(new CompileStm(), null);
+		s.accept(new CompileStm(), null);
+		Module.buildString("\n");
 		return ;
 	}
 	
@@ -29,6 +30,7 @@ public class Compiler {
 	
 	public static void eval(Program p){
 		System.out.println("Eval Programm");
+		
 		 p.accept(new CompileProgram(),null);
 		return;
 	}

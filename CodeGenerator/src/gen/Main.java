@@ -1,5 +1,6 @@
 package gen;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,7 +21,9 @@ public class Main {
 		try {
 			
 			//File f = new File("/home/soenke/Schreibtisch/Compiler/ex4/workspace/CodeGenerator/files/good01.cc");
-			File f = new File("good01.cc");
+			/*FileReader fr = new FileReader("/files/" + "good01.cc");
+			BufferedReader br  = new BufferedReader(fr);*/
+			File f = new File("files/good07.cc");
 			f.createNewFile();
 			filename = f.getName();
 			if(!f.exists()){
@@ -65,8 +68,8 @@ public class Main {
 		
 		c.eval(parse_tree);
 		System.out.println(Module.llvm_output);
-		//Module.mod.dump();
-		Filewriter.writeFile(filename);
+		
+		//Filewriter.writeFile(filename);
 	}
 	
 	

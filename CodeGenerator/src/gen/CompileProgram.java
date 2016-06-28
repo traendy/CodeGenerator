@@ -17,6 +17,8 @@ public class CompileProgram implements Visitor<String, String>{
 	@Override
 	public String visit(PDefs p, String arg) {
 		System.out.println("Visit PDefs");
+		Module.buildString("@define ");
+		System.out.println("List length: " + p.listdef_.size());
 		for(int i =0 ; i< p.listdef_.size(); i++){
 			Compiler.eval(p.listdef_.get(i));
 			

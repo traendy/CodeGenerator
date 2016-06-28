@@ -17,15 +17,7 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 /**
  * Most of the functions are her always return the appended string that schould be it
  */
-	public LLVMValue codegen(){
-		return null;
-		
-	}
-	public LLVMValue LogErrorV(String str){
-		System.out.println(str);
-		return null;
-		
-	}
+	
 	
 	@Override
 	public LLVMValue visit(ETrue p, String arg) {
@@ -45,7 +37,9 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	@Override
 	public LLVMValue visit(EInt p, String arg) {
 		System.out.println("Visit EInt");
-		//return LLVMConstantInteger.
+		Module.buildString(Module.lastId);
+		Module.buildString(". i32* ");
+		Module.buildString(p.integer_.toString()+ " ");
 		return null;
 	}
 
@@ -66,6 +60,7 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	@Override
 	public LLVMValue visit(EId p, String arg) {
 		// TODO Auto-generated method stub
+		Module.buildString(p.id_+ " ");
 		System.out.println("Visit EId");
 		
 		
@@ -76,9 +71,15 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(EApp p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit EApp");
+		
+		//Module.buildString("store i32 ");
+		//Module.buildString(Module.lastId);
+		//Module.buildString(". i32* ");
+		Module.buildString("call @"+p.id_+"(");
+		
 		for(int index = 0; index < p.listexp_.size(); index++)
 		Compiler.eval(p.listexp_.get(index));
-
+		Module.buildString(")");
 		return null;
 	}
 
@@ -104,7 +105,11 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(EIncr p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit EIncr");
+		Module.buildString("%");
 		Compiler.eval(p.exp_);
+		Module.buildString("= add %");
+		Compiler.eval(p.exp_);
+		Module.buildString(" i32 1");
 
 		return null;
 	}
@@ -121,7 +126,9 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(ETimes p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit ETimes");
+		Module.buildString("mul ");
 		Compiler.eval(p.exp_1);
+		Module.buildString(", ");
 		Compiler.eval(p.exp_2);
 		return null;
 	}
@@ -130,18 +137,21 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(EDiv p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit EDiv");
+		Module.buildString("div ");
 		Compiler.eval(p.exp_1);
+		Module.buildString(", ");
 		Compiler.eval(p.exp_2);
 		return null;
 	}
 
 	@Override
 	public LLVMValue visit(EPlus p, String arg) {
-		// TODO Auto-generated method stub
-		System.out.println("Visit EPlus");
 		
+		System.out.println("Visit EPlus");
+		Module.buildString("add ");
 		
 		Compiler.eval(p.exp_1);
+		Module.buildString(", ");
 		Compiler.eval(p.exp_2);
 		return null;
 	}
@@ -150,7 +160,9 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(EMinus p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit EMinus");
+		Module.buildString("sub ");
 		Compiler.eval(p.exp_1);
+		Module.buildString(", ");
 		Compiler.eval(p.exp_2);
 		return null;
 	}
@@ -159,7 +171,9 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(ELt p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit ELt");
+		Module.buildString(" fcmp olt ");
 		Compiler.eval(p.exp_1);
+		Module.buildString(", ");
 		Compiler.eval(p.exp_2);
 		return null;
 	}
@@ -233,7 +247,9 @@ public class CompileExp implements Exp.Visitor<LLVMValue, String>{
 	public LLVMValue visit(EAss p, String arg) {
 		// TODO Auto-generated method stub
 		System.out.println("Visit EAss");
+		Module.buildString("%" );
 		Compiler.eval(p.exp_1);
+		Module.buildString(" = ");
 		Compiler.eval(p.exp_2);
 		
 		return null;

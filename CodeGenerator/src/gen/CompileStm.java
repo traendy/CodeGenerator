@@ -41,7 +41,15 @@ public class CompileStm implements Stm.Visitor<String, String>{
 	public String visit(SInit p, String arg) {
 		System.out.println("Visit SInit");
 		// TODO Auto-generated method stub
+		Module.buildString("%" + p.id_);
+		Module.buildString(" " + " = " + " ");
+		Module.buildString("alloca ");
+		Module.getType(p.type_.toString());
+		Module.buildString(", allign 4 \n");
+		Module.buildString("store i32 ");
+		Module.lastId = p.id_;	
 		Compiler.eval(p.exp_);
+		Module.buildString(". allign 4");
 		return null;
 	}
 
@@ -63,9 +71,15 @@ public class CompileStm implements Stm.Visitor<String, String>{
 	@Override
 	public String visit(SWhile p, String arg) {
 		// TODO Auto-generated method stub
+		
 		System.out.println("Visit SWhile");
+		
+		Module.buildString("%condition =");
 		Compiler.eval(p.exp_);
+		Module.buildString("\nbr " + "while1 %condition, label %cond_true, label %cond_false\n" );
+		Module.buildString("cond_true: \n");
 		Compiler.eval(p.stm_);
+		Module.buildString("cond_false: ");
 		return null;
 	}
 
