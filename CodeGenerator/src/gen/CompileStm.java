@@ -1,6 +1,6 @@
 package gen;
 
-import CPP.*;
+
 import CPP.Absyn.*;
 /**
  * evalute the R and A
@@ -19,7 +19,7 @@ public class CompileStm implements Stm.Visitor<String, String>{
 		// TODO Auto-generated method stub
 		System.out.println("Visit SExp");
 		
-		String s = Compiler.eval(p.exp_);
+		Module.Output.add( Compiler.eval(p.exp_));
 		
 		return null;
 	}
@@ -31,10 +31,10 @@ public class CompileStm implements Stm.Visitor<String, String>{
 	@Override
 	public String visit(SDecls p, String arg) {
 		System.out.println("Visit SDecls");
-		 
+		
 		for(int i =0; i< p.listid_.size(); i++)
-		Module.Output.add("%" + p.listid_.get(i) + " = alloca i32, allign 4\n");	
-
+		Module.Output.add("%" + p.listid_.get(i) + " = alloca i32, align 4");	
+		
 		
 		return null;
 	}
@@ -42,10 +42,12 @@ public class CompileStm implements Stm.Visitor<String, String>{
 	@Override
 	public String visit(SInit p, String arg) {
 		System.out.println("Visit SInit");
-		Module.Output.add( "%"+p.id_ + " = alloca i32, allign 4\n");   
+		Module.Output.add( "%"+p.id_ + " = alloca i32, align 4");   
 		Module.variableStack.add(p.id_);
 		String s = Compiler.eval(p.exp_);
+		
 		if(isNumber(s)){
+			
 			Module.Output.add("store i32 "+ s + ", i32* "+Module.variableStack.getLast());
 			Module.variableStack.removeLast();
 		}else {
@@ -53,9 +55,9 @@ public class CompileStm implements Stm.Visitor<String, String>{
 			Module.context.put(String.valueOf(Module.level), s);
 			Module.variableStack.add(String.valueOf(Module.level));
 			Module.level++;
-			String s2 = ("store i32 %"+ Module.variableStack.getLast() + ", i32* ");
+			String s2 = ("store i32 %"+ Module.variableStack.getLast() + ", i32* %");
 			Module.variableStack.removeLast();
-			s2+= Module.variableStack.getLast() + ", allign 4";
+			s2+= Module.variableStack.getLast() + ", align 4";
 			Module.Output.add(s2);
 
 		}
@@ -69,6 +71,7 @@ public class CompileStm implements Stm.Visitor<String, String>{
 		System.out.println("Visit SReturn");
 	
 		Module.buildString("ret ");
+		@SuppressWarnings("unused")
 		String s= Compiler.eval(p.exp_);
 	
 			Module.Output.add("ret i32 %"+ Module.level);
@@ -136,22 +139,23 @@ public class CompileStm implements Stm.Visitor<String, String>{
 		Module.Output.add("br i1 %"+ Module.level +" label %itrue, label %ifalse, label %ifinally " );
 		Module.level++;
 		Module.Output.add("\n; <label>: itrue");
-		Compiler.eval(p.stm_1);
 		
+		Compiler.eval(p.stm_1);
+	
 		Module.Output.add("\n; <label>: ifalse: ");
 		Compiler.eval(p.stm_2);
 		
-		Module.Output.add("\n; <label>: ifinallye: ");
+		Module.Output.add("\n; <label>: ifinally: ");
 		return null;
 	}
 	
 	public static boolean isNumber(String s){
-		try{
-			int i = Integer.parseInt(s);
-		}catch(NumberFormatException e){
-			return false;
-		}
-		return true;
+		for(char c: s.trim().toCharArray()) {
+			
+			if(!Character.isDigit(c))return false;
+			
+		}return true;
+		
 	}
 
 }

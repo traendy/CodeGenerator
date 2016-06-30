@@ -1,13 +1,11 @@
 package gen;
 
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import org.jllvm.LLVMContext;
-import org.jllvm.LLVMModule;
 
 import CPP.Yylex;
 import CPP.parser;
@@ -17,22 +15,29 @@ import CPP.Absyn.Program;
 public class Main {
 
 	static  String filename;
+	
 	public static void main(String[] args) {
-		
+		if(args.length==0){
+			System.out.println("No Input argument!");
+			return;
+		}
 		try {
 			
 			//File f = new File("/home/soenke/Schreibtisch/Compiler/ex4/workspace/CodeGenerator/files/good01.cc");
 			/*FileReader fr = new FileReader("/files/" + "good01.cc");
 			BufferedReader br  = new BufferedReader(fr);*/
-			File f = new File("files/good03.cc");
+			//File f = new File("files/good11.cc");
+			File f = new File(args[0]);
+			
 			f.createNewFile();
 			filename = f.getName();
 			if(!f.exists()){
 			System.out.println("File does not exist");
 			}
 			Yylex l = new Yylex(new FileReader(f));
-			// l = new Yylex(new FileReader("good.cc")); //TODO: find out what this is
 			
+			
+			@SuppressWarnings("deprecation")
 			parser p = new parser(l);
 				
 				CPP.Absyn.Program parse_tree;
@@ -64,16 +69,15 @@ public class Main {
 	 */
 	
 	private static void generate(Program parse_tree) {
-		Compiler c = new Compiler();
+		
 		Module.variableStack = new LinkedList<>();
 		Module.Output = new LinkedList<>();
 		System.out.println(parse_tree.toString());
 		
-		c.eval(parse_tree);
+		Compiler.eval(parse_tree);
 		Module.finish();
+		Filewriter.write(filename);
 		
-		
-		//Filewriter.writeFile(filename);
 	}
 	
 	

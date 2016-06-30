@@ -1,6 +1,6 @@
 package gen;
 
-import CPP.*;
+
 import CPP.Absyn.*;
 
 

@@ -6,14 +6,14 @@ public class Compiler {
 	public static String eval(Exp e){
 		System.out.println("Eval Expression:");
 		String s =  e.accept(new CompileExp(), null);
-		System.out.println("--------------------S" + s);
+		
 		return s ;
 	}
 	
 	public static void eval(Stm s){
 		System.out.println("Eval Statement");
 		s.accept(new CompileStm(), null);
-		Module.buildString("\n");
+		
 		return ;
 	}
 	
