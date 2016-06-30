@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import org.jllvm.LLVMContext;
 import org.jllvm.LLVMModule;
@@ -23,7 +24,7 @@ public class Main {
 			//File f = new File("/home/soenke/Schreibtisch/Compiler/ex4/workspace/CodeGenerator/files/good01.cc");
 			/*FileReader fr = new FileReader("/files/" + "good01.cc");
 			BufferedReader br  = new BufferedReader(fr);*/
-			File f = new File("files/good07.cc");
+			File f = new File("files/good03.cc");
 			f.createNewFile();
 			filename = f.getName();
 			if(!f.exists()){
@@ -64,10 +65,13 @@ public class Main {
 	
 	private static void generate(Program parse_tree) {
 		Compiler c = new Compiler();
+		Module.variableStack = new LinkedList<>();
+		Module.Output = new LinkedList<>();
 		System.out.println(parse_tree.toString());
 		
 		c.eval(parse_tree);
-		System.out.println(Module.llvm_output);
+		Module.finish();
+		
 		
 		//Filewriter.writeFile(filename);
 	}

@@ -1,3 +1,11 @@
+int readInt(){
+return 1;
+} 
+
+int printInt(int i){
+return i;
+}
+
 int main ()
 {
   int x = readInt () ;

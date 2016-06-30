@@ -19,10 +19,11 @@ public class CompileDef implements Def.Visitor<String, String> {
 			Compiler.eval(p.listarg_.get(i));	
 			if(i< p.listarg_.size() - 1) Module.buildString(", ");
 		}
-		Module.buildString(")"+"{\n" + "entry: \n");
+		Module.buildString(")"+"{\n");
 		for(int i =0; i<p.liststm_.size(); i++){
 			Compiler.eval(p.liststm_.get(i));	
 		}
+		Module.buildString("ret i32 0\n");
 		Module.buildString("\n}");
 		return null;
 	}

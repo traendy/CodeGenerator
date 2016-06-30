@@ -3,10 +3,11 @@ package gen;
 import CPP.Absyn.*;
 
 public class Compiler {
-	public static void eval(Exp e){
+	public static String eval(Exp e){
 		System.out.println("Eval Expression:");
-		 e.accept(new CompileExp(), null);
-		return ;
+		String s =  e.accept(new CompileExp(), null);
+		System.out.println("--------------------S" + s);
+		return s ;
 	}
 	
 	public static void eval(Stm s){
@@ -16,10 +17,10 @@ public class Compiler {
 		return ;
 	}
 	
-	public static void eval(Arg a){
+	public static String eval(Arg a){
 		System.out.println("Eval Argument");
-		 a.accept(new CompileArg(), null);
-		return ;
+		String s =  a.accept(new CompileArg(), null);
+		return s;
 	}
 	
 	public static void eval(Def d){
